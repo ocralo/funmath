@@ -51,7 +51,7 @@ export default class Login extends Component {
     return (
       <section className="container-fluid h-100 w-100">
         <div className="row justify-content-md-center align-items-center d-flex justify-content-center flex-column align-items-center">
-          <div className="card shadow col-md-4 col-8 mt-5">
+          <div className="card shadow col-md-4 col-sm-6 col-lg-4 col-xl-4 col-11 mt-5">
             <div className="card-body d-flex justify-content-center flex-column align-items-center">
               <img src="/Assets/img/dragon.svg" alt="Logo drago" />
               <h2 className="rel-title-log">FUNMATH</h2>
@@ -83,15 +83,14 @@ export default class Login extends Component {
                   </button>
                   <button
                     type="submit"
-                    className="btn btn-light border d-flex justify-content-around w-100"
+                    className="btn btn-light border d-flex justify-content-center w-100"
                     onClick={this.handleClick}
                   >
                     <img
                       src="./Assets/img/google.svg"
                       alt="icono de Google"
                       className="rel-icon-login-google"
-                    />
-                    INICIAR SESÍON CON GOOGLE
+                    />INICIAR SESÍON CON GOOGLE
                   </button>
                 </div>
                 <hr />
