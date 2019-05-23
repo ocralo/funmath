@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Login.css";
+import * as firebase from "firebase";
 
 export default class Login extends Component {
   constructor(props) {
@@ -10,10 +11,41 @@ export default class Login extends Component {
     };
     this.email = React.createRef();
     this.password = React.createRef();
-    this.handleSumit = this.handleSumit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this); 
   }
-  handleSumit = event => {
-    this.props.history.push("/Home");
+  handleClick = event => {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    let me = this;
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function(result) {
+        if (result) {
+          me.props.history.push("/home");
+        }
+      })
+      .catch(function (error) {
+        console.error(error)
+      });
+  }
+
+  handleSubmit = event => {
+    let me = this;
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(
+        this.email.current.value,
+        this.password.current.value
+      )
+      .then(function(firebaseUser) {
+        console.log("Exito", firebaseUser);
+        me.props.history.push("/home");
+      })
+      .catch(function(error) {
+        var errorMessage = error.message;
+        console.log("Error", errorMessage);
+      });
   };
   render() {
     return (
@@ -23,7 +55,10 @@ export default class Login extends Component {
             <div className="card-body d-flex justify-content-center flex-column align-items-center">
               <img src="/Assets/img/dragon.svg" alt="Logo drago" />
               <h2 className="rel-title-log">FUNMATH</h2>
-              <form className="d-flex justify-content-center flex-column w-100">
+              <form
+                className="d-flex justify-content-center flex-column w-100"
+                onSubmit={this.handleSubmit}
+              >
                 <div className="form-group d-flex flex-column">
                   <label className="pure-material-textfield-outlined">
                     <input placeholder=" " ref={this.email} />
@@ -49,6 +84,7 @@ export default class Login extends Component {
                   <button
                     type="submit"
                     className="btn btn-light border d-flex justify-content-around w-100"
+                    onClick={this.handleClick}
                   >
                     <img
                       src="./Assets/img/google.svg"
