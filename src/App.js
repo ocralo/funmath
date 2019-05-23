@@ -1,8 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Loadable from "react-loadable";
 import { HashRouter, Route, Switch } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
 import * as firebase from "firebase";
 
 const loading = () => (
