@@ -16,6 +16,16 @@ const Login = Loadable({
   loading
 });
 
+const Home = Loadable({
+  loader: () => import("./views/Home/Home"),
+  loading
+});
+
+const AR = Loadable({
+  loader: () => import("./views/AR/AR"),
+  loading
+});
+
 // Configuracion de firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBsl6DZ-RS-xr3i3ISEjigB-28-XRmgAc4",
@@ -34,6 +44,8 @@ function App() {
     <HashRouter>
       <Switch>
         <Route exact path="/" name="Login - Funmath" component={Login} />
+        <Route exact path="/Home" name="Home - Funmath" component={Home} />
+        <Route exact path="/AR" name="AR - Funmath" component={AR} />
       </Switch>
     </HashRouter>
   );

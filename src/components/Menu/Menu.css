@@ -1,0 +1,39 @@
+.rel-title-menu-container {
+  height: 3.5em;
+}
+
+.rel-title-menu-navbar {
+  border-bottom: 56px solid #10455B;
+  border-right: 65px solid transparent;
+  width: 20vw;
+}
+.rel-title-menu-navbar h1{
+color: white;
+}
+
+.rel-title-menu-navbar img{
+  width: auto;
+  height: 2.5em;
+  margin-right:1em; 
+  padding-top: 0.2em;
+}
+
+@media screen and (max-width: 1440px) {
+  .rel-title-menu-navbar {
+  width: 25vw;
+}
+}
+
+@media screen and (max-width: 800px) {
+  .rel-title-menu-navbar {
+    width: 40vw;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .rel-title-menu-navbar {
+    width: 60vw;
+  }
+}
+
+
