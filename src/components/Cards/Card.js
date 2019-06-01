@@ -9,7 +9,7 @@ export default class Card extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
     handleClick(e,dato) {
-      console.log(dato)
+      this.props.changePage(dato);
   }
 
   render() {
