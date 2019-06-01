@@ -21,6 +21,11 @@ const Home = Loadable({
   loading
 });
 
+const Exercises = Loadable({
+  loader: () => import("./views/Exercises/Exercises"),
+  loading
+});
+
 const AR = Loadable({
   loader: () => import("./views/AR/AR"),
   loading
@@ -46,6 +51,12 @@ function App() {
         <Route exact path="/" name="Login - Funmath" component={Login} />
         <Route exact path="/Home" name="Home - Funmath" component={Home} />
         <Route exact path="/AR" name="AR - Funmath" component={AR} />
+        <Route
+          exact
+          path="/Exercises"
+          name="Exercises - Funmath"
+          component={Exercises}
+        />
       </Switch>
     </HashRouter>
   );

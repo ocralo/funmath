@@ -1,0 +1,11 @@
+.rel-card-title{
+    border-top: 30px solid #10455b;
+  border-right: 40px solid transparent;
+  width: 70%;
+}
+
+.rel-card-title h5{
+    position: absolute;
+    top:0;
+    color:white;
+}
