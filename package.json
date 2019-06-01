@@ -11,7 +11,8 @@
     "react-loadable": "^5.5.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
-    "react-web-ar": "^1.0.0-beta2"
+    "react-web-ar": "^1.0.0-beta2",
+    "video-react": "^0.13.7"
   },
   "scripts": {
     "start": "react-scripts start",

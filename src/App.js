@@ -31,6 +31,15 @@ const AR = Loadable({
   loading
 });
 
+const Question = Loadable({
+  loader: () => import("./views/Question/Question"),
+  loading
+});
+const Video = Loadable({
+  loader: () => import("./views/Video/Video"),
+  loading
+});
+
 // Configuracion de firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBsl6DZ-RS-xr3i3ISEjigB-28-XRmgAc4",
@@ -56,6 +65,18 @@ function App() {
           path="/Exercises"
           name="Exercises - Funmath"
           component={Exercises}
+        />
+        <Route
+          exact
+          path="/Question"
+          name="Question - Funmath"
+          component={Question}
+        />
+        <Route
+          exact
+          path="/Video"
+          name="Video - Funmath"
+          component={Video}
         />
       </Switch>
     </HashRouter>
