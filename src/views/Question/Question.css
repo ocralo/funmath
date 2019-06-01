@@ -1,15 +1,21 @@
 .rel-container-preguntas{
     position: absolute;
     top:0px;
-    width: 48vw;
+    width: 100%;
     left: 0;
 }
 
+.rel-container-preguntas h3{
+    margin-top: 2em;
+    color: white;
+    background-color: black;
+}
+
 .rel-button-question{
-    display: block;
-    height: 6.2em;
-    margin-top: 2.5em;
-    background-color: transparent;
+    margin-top: 0.5em;
+    font-size: 0.8em;
+    background-color: #2AA1AF;
+    color: white;
 }
 
 .rel-comentario{
@@ -25,4 +31,10 @@
     z-index: 100000;
 }
 
-
+@media (max-width: 800px) {
+  .rel-container-preguntas h3{
+    font-size: 1em;
+    color: white;
+    background-color: black;
+}
+}

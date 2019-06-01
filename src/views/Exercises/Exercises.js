@@ -27,7 +27,7 @@ export default class Exercises extends Component {
           <div className="row mt-5">
             <Card
               title="Ejercisio 1"
-              url="/home"
+              url="/question"
               changePage={this.changePage}
               content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi gravida congue aliquet. Donec convallis lacus vitae justo viverra sagittis. Praesent a mollis nunc, sit amet congue elit. "
             />

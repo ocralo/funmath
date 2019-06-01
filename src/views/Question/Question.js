@@ -109,9 +109,9 @@ export default class Question extends Component {
     console.log(tiempo);
   }
   detecTime(time) {
-    if (time >= 23 && time <= 26) {
+    if (time >= 59 && time < 64) {
       this.viewQuestion();
-    } else if (time >= 28) {
+    } else if (time >= 64) {
       this.pause();
       this.viewQuestion();
     } else {
@@ -173,25 +173,49 @@ export default class Question extends Component {
           ref={this.preguntas}
         >
           <div className="row justify-content-center text-center ">
-            <div className="col-3 mt-5">
+            <h3 className="w-75">
+              "Los niveles normales de concentraci&oacute;n de potasio son
+              3.70 x10-6 a 5.20 x10-6 Eq/mL. Usted revisa dichos resultados
+              y observa que la concentraci&oacute;n es de 4,80 mEq/L. Esta
+              concentraci&oacute;n es normal?"
+            </h3>
+          </div>
+          <div className="row justify-content-center text-center ">
+            <div className="col-6">
               <button
                 onClick={e => this.ChangeScene("/VideoContent")}
-                className="rel-button-question w-100"
-              />
+                className="btn rel-button-question w-100"
+              >
+                "S&iacute; es normal. Una concentraci&oacute;n de 4,80 mEq/L
+                equivale a 4,80 x10-6 Eq/mL, entrando en el rango normal de
+                concentraci&oacute;n."
+              </button>
               <button
                 onClick={e => this.ChangeScene("/VideoHardWare")}
-                className="rel-button-question w-100"
-              />
+                className="btn rel-button-question w-100"
+              >
+                "No es normal. Una concentraci&oacute;n de 4,80 mEq/L
+                equivale a 4,80 x10-3 Eq/mL, siendo inferior al rango normal
+                de concentraci&oacute;n."
+              </button>
             </div>
-            <div className="col-3  mt-5">
+            <div className="col-6">
               <button
                 onClick={e => this.ChangeScene("/InteractiveGesture")}
-                className="rel-button-question w-100 "
-              />
+                className="btn rel-button-question w-100 "
+              >
+                "S&iacute; es normal. Una concentraci&oacute;n de 4,80 mEq/L
+                equivale a 4,80 x10-6 Eq/L, entrando en el rango normal de
+                concentraci&oacute;n."
+              </button>
               <button
                 onClick={e => this.ChangeScene("/InteractiveSound")}
-                className="rel-button-question w-100 "
-              />
+                className="btn rel-button-question w-100 "
+              >
+                "No es normal. Una concentraci&oacute;n de 4,80 mEq/L
+                equivale a 4,80 x10-3 Eq/L, siendo superior al rango normal
+                de concentraci&oacute;n."
+              </button>
             </div>
           </div>
         </div>
