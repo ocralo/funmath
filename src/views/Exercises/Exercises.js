@@ -18,7 +18,7 @@ export default class Exercises extends Component {
     const attemptCard = firebase
       .database()
       .ref()
-      .child("gameCase");
+      .child("preguntas");
     attemptCard.on("value", snapshot => {
       console.log(snapshot.val());
       this.setState({
@@ -27,14 +27,15 @@ export default class Exercises extends Component {
     });
   }
 
-  changePage(page,contentQuestion,titleQuestion,question) {
+  changePage(page, contentQuestion, titleQuestion, question,video) {
     console.log(page);
     this.props.history.push({
       pathname: page,
       state: {
         content: contentQuestion,
         title: titleQuestion,
-        question:question
+        question: question,
+        video:video
       }
     });
   }
@@ -46,9 +47,8 @@ export default class Exercises extends Component {
         <div className="container">
           <div className="row mt-5">
             {Object.keys(this.state.exercises).map((key, i) => {
-              console.log(this.state.exercises[key].asws);
               if (key === "videos") {
-                return("")
+                return "";
               } else {
                 return (
                   <Card
@@ -58,6 +58,7 @@ export default class Exercises extends Component {
                     changePage={this.changePage}
                     content={this.state.exercises[key].question}
                     question={this.state.exercises[key].asws}
+                    video={i+1}
                   />
                 );
               }

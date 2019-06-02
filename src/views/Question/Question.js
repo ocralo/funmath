@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./Question.css";
 import "video-react/dist/video-react.css";
-import { Player, ControlBar } from "video-react";
+import { Player, ControlBar, BigPlayButton } from "video-react";
 import Menu from "../../components/Menu/Menu";
+import firebase from "firebase";
 
 const sources = {
   sintelTrailer: "./assets/video/Que_es_Multimedia.mp4",
@@ -17,7 +18,7 @@ export default class Question extends Component {
     super(props, context);
 
     this.state = {
-      source: sources["bunnyTrailer"],
+      source: "",
       time: tiempo
     };
     this.preguntas = React.createRef();
@@ -127,6 +128,24 @@ export default class Question extends Component {
   noViewQuestion() {
     this.preguntas.current.style.display = "none";
   }
+
+  componentWillMount() {
+    const attemptCard = firebase
+      .database()
+      .ref()
+      .child("videos");
+    
+    attemptCard.on("value", snapshot => {
+      console.log(snapshot.val()["video" + this.props.location.state.video]);
+      
+      this.setState({
+        source: snapshot.val()['video' + this.props.location.state.video]
+      });
+      this.refs.player.load();
+    });
+    
+  }
+
   componentDidMount() {
     console.log(this.props.location.state);
     clearInterval(interval);
@@ -168,6 +187,7 @@ export default class Question extends Component {
           width={window.innerWidth}
           height={window.innerHeight}
         >
+          <BigPlayButton position="center" />
           <source src={this.state.source} />
           <ControlBar autoHide={false} />
         </Player>
