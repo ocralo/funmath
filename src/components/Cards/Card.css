@@ -6,6 +6,11 @@
 
 .rel-card-title h5{
     position: absolute;
-    top:0;
+    top:3px;
     color:white;
+}
+
+.rel-card-body-question{
+  height: 10.5em;
+  overflow: hidden;
 }

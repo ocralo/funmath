@@ -19,7 +19,7 @@ export default class Card extends Component {
           <h5>{this.props.title}</h5>
         </div>
         <div className="card-body">
-          <p>{this.props.content}</p>
+          <p className="card-body rel-card-body-question">{this.props.content}</p>
         </div>
         <div className="w-100 d-flex justify-content-end">
           <button
