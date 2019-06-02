@@ -27,9 +27,16 @@ export default class Exercises extends Component {
     });
   }
 
-  changePage(page) {
+  changePage(page,contentQuestion,titleQuestion,question) {
     console.log(page);
-    this.props.history.push(page);
+    this.props.history.push({
+      pathname: page,
+      state: {
+        content: contentQuestion,
+        title: titleQuestion,
+        question:question
+      }
+    });
   }
 
   render() {
@@ -39,7 +46,9 @@ export default class Exercises extends Component {
         <div className="container">
           <div className="row mt-5">
             {Object.keys(this.state.exercises).map((key, i) => {
+              console.log(this.state.exercises[key].asws);
               if (key === "videos") {
+                return("")
               } else {
                 return (
                   <Card
@@ -48,6 +57,7 @@ export default class Exercises extends Component {
                     url="/question"
                     changePage={this.changePage}
                     content={this.state.exercises[key].question}
+                    question={this.state.exercises[key].asws}
                   />
                 );
               }

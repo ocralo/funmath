@@ -8,8 +8,8 @@ export default class Card extends Component {
     this.state = {};
     this.handleClick = this.handleClick.bind(this);
   }
-    handleClick(e,dato) {
-      this.props.changePage(dato);
+    handleClick(e,dato,content,title,question) {
+      this.props.changePage(dato,content,title,question);
   }
 
   render() {
@@ -19,13 +19,17 @@ export default class Card extends Component {
           <h5>{this.props.title}</h5>
         </div>
         <div className="card-body">
-          <p className="card-body rel-card-body-question">{this.props.content}</p>
+          <p className="card-body rel-card-body-question">
+            {this.props.content}
+          </p>
         </div>
         <div className="w-100 d-flex justify-content-end">
           <button
             type="button"
             className="btn btn-info btn-sm mb-2 mr-2 w-25 shadow-sm"
-            onClick={e => this.handleClick(e, this.props.url)}
+            onClick={e =>
+              this.handleClick(e, this.props.url,this.props.content, this.props.title,this.props.question)
+            }
           >
             ir
           </button>

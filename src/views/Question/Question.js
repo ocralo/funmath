@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Question.css";
 import "video-react/dist/video-react.css";
 import { Player, ControlBar } from "video-react";
+import Menu from "../../components/Menu/Menu";
 
 const sources = {
   sintelTrailer: "./assets/video/Que_es_Multimedia.mp4",
@@ -127,6 +128,7 @@ export default class Question extends Component {
     this.preguntas.current.style.display = "none";
   }
   componentDidMount() {
+    console.log(this.props.location.state);
     clearInterval(interval);
     var me = this;
     var promise = new Promise((resolve, reject) => {
@@ -158,6 +160,7 @@ export default class Question extends Component {
   render() {
     return (
       <div className="container-fluid p-0">
+        <Menu title={this.props.location.state.title} />
         <Player
           ref="player"
           autoPlay
@@ -173,49 +176,25 @@ export default class Question extends Component {
           ref={this.preguntas}
         >
           <div className="row justify-content-center text-center ">
-            <h3 className="w-75">
-              "Los niveles normales de concentraci&oacute;n de potasio son
-              3.70 x10-6 a 5.20 x10-6 Eq/mL. Usted revisa dichos resultados
-              y observa que la concentraci&oacute;n es de 4,80 mEq/L. Esta
-              concentraci&oacute;n es normal?"
-            </h3>
+            <h3 className="w-75">{this.props.location.state.content}</h3>
           </div>
           <div className="row justify-content-center text-center ">
-            <div className="col-6">
-              <button
-                onClick={e => this.ChangeScene("/VideoContent")}
-                className="btn rel-button-question w-100"
-              >
-                "S&iacute; es normal. Una concentraci&oacute;n de 4,80 mEq/L
-                equivale a 4,80 x10-6 Eq/mL, entrando en el rango normal de
-                concentraci&oacute;n."
-              </button>
-              <button
-                onClick={e => this.ChangeScene("/VideoHardWare")}
-                className="btn rel-button-question w-100"
-              >
-                "No es normal. Una concentraci&oacute;n de 4,80 mEq/L
-                equivale a 4,80 x10-3 Eq/mL, siendo inferior al rango normal
-                de concentraci&oacute;n."
-              </button>
-            </div>
-            <div className="col-6">
-              <button
-                onClick={e => this.ChangeScene("/InteractiveGesture")}
-                className="btn rel-button-question w-100 "
-              >
-                "S&iacute; es normal. Una concentraci&oacute;n de 4,80 mEq/L
-                equivale a 4,80 x10-6 Eq/L, entrando en el rango normal de
-                concentraci&oacute;n."
-              </button>
-              <button
-                onClick={e => this.ChangeScene("/InteractiveSound")}
-                className="btn rel-button-question w-100 "
-              >
-                "No es normal. Una concentraci&oacute;n de 4,80 mEq/L
-                equivale a 4,80 x10-3 Eq/L, siendo superior al rango normal
-                de concentraci&oacute;n."
-              </button>
+            <div className="col-md-6">
+              <div className="row justify-content-center">
+                {Object.keys(this.props.location.state.question).map(
+                  (key, i) => {
+                    return (
+                      <button
+                        onClick={e => this.ChangeScene("/VideoContent")}
+                        className="btn rel-button-question w-100 col-md-4 col-11 ml-2"
+                        key={i}
+                      >
+                        {this.props.location.state.question[key]}
+                      </button>
+                    );
+                  }
+                )}
+              </div>
             </div>
           </div>
         </div>
