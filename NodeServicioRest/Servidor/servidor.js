@@ -18,7 +18,7 @@ app.get('/check/:id/:asw',function (req,res) {
     return;
   }
 
-  if (questions[id-1] == asw){
+  if (questions[id-1] === asw){
     var obj = JSON.parse('{ "check":"true"}');
     res.send(obj);
   } else {

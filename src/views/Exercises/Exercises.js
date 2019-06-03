@@ -35,7 +35,7 @@ export default class Exercises extends Component {
         content: contentQuestion,
         title: titleQuestion,
         question: question,
-        video:video
+        video: video
       }
     });
   }

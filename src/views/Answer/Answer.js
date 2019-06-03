@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Question.css";
+import "./Answer.css";
 import "video-react/dist/video-react.css";
 import { Player, ControlBar, BigPlayButton } from "video-react";
 import Menu from "../../components/Menu/Menu";
@@ -13,7 +13,7 @@ const sources = {
 
 var tiempo, interval;
 
-export default class Question extends Component {
+export default class Answer extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -129,21 +129,14 @@ export default class Question extends Component {
     this.preguntas.current.style.display = "none";
   }
 
-  componentWillMount() {
+    componentWillMount() {
+        console.log(this.props.location.state.answer + " gg");
     const attemptCard = firebase
       .database()
       .ref()
       .child("videos");
-    
-    attemptCard.on("value", snapshot => {
-      console.log(snapshot.val()["video" + this.props.location.state.video]);
-      
-      this.setState({
-        source: snapshot.val()['video' + this.props.location.state.video]
-      });
-      this.refs.player.load();
-    });
-    
+
+    attemptCard.on("value", snapshot => {});
   }
 
   componentDidMount() {
@@ -164,15 +157,13 @@ export default class Question extends Component {
     clearInterval(interval);
     this.props.history.push("/InteractiveSound");
     console.log("correcto");
-  
   }
   answer(response) {
     clearInterval(interval);
     this.props.history.push({
       pathname: "/answer",
       state: {
-        answer: response,
-        question:this.props.location.state.video-1
+        answer: response
       }
     });
   }
@@ -189,8 +180,8 @@ export default class Question extends Component {
 
   render() {
     return (
-      <div className="container-fluid p-0">
-        <Menu title={this.props.location.state.title} />
+      <div className="container-fluid p-0 w-100">
+        <Menu title="Respuesta" />
         <Player
           ref="player"
           autoPlay
@@ -207,30 +198,11 @@ export default class Question extends Component {
           ref={this.preguntas}
         >
           <div className="row justify-content-center text-center ">
-            <h3 className="w-75">{this.props.location.state.content}</h3>
+            <h3 className="w-75">{}</h3>
           </div>
           <div className="row justify-content-center text-center ">
             <div className="col-md-6">
-              <div className="row justify-content-center">
-                {Object.keys(this.props.location.state.question).map(
-                  (key, i) => {
-                    return (
-                      <button
-                        onClick={e =>
-                          this.answer(i+1)
-                        }
-                        className="btn rel-button-question w-100 col-md-4 col-11 ml-2"
-                        key={i}
-                      >
-                        {
-                          this.props.location.state
-                            .question[key]
-                        }
-                      </button>
-                    );
-                  }
-                )}
-              </div>
+              <div className="row justify-content-center">{}</div>
             </div>
           </div>
         </div>

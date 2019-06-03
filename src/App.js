@@ -39,6 +39,10 @@ const Video = Loadable({
   loader: () => import("./views/Video/Video"),
   loading
 });
+const Answer = Loadable({
+  loader: () => import("./views/Answer/Answer"),
+  loading
+});
 
 // Configuracion de firebase
 const firebaseConfig = {
@@ -77,6 +81,12 @@ function App() {
           path="/Video"
           name="Video - Funmath"
           component={Video}
+        />
+        <Route
+          exact
+          path="/Answer"
+          name="Answer - Funmath"
+          component={Answer}
         />
       </Switch>
     </HashRouter>
