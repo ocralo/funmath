@@ -8,9 +8,11 @@ export default class Exercises extends Component {
   constructor(props) {
     super();
     this.state = {
-      exercises: {}
+      exercises: {},
+      name: ""
     };
     this.changePage = this.changePage.bind(this);
+    this.backPage = this.backPage.bind(this);
   }
   handleClick = event => {};
 
@@ -25,9 +27,31 @@ export default class Exercises extends Component {
         exercises: snapshot.val()
       });
     });
+    try {
+      if (
+        this.props.location.state.user.user.displayName === "" ||
+        this.props.location.state.user.user.displayName === undefined
+      ) {
+      } else {
+        sessionStorage.setItem(
+          "name",
+          this.props.location.state.user.user.displayName
+        );
+      }
+    } catch {}
+    this.setState({
+      name: sessionStorage.getItem("name")
+    });
   }
 
-  changePage(page, contentQuestion, titleQuestion, question,video) {
+  backPage() {
+    console.log("gg");
+    this.props.history.push({
+      pathname: "./home"
+    });
+  }
+
+  changePage(page, contentQuestion, titleQuestion, question, video) {
     console.log(page);
     this.props.history.push({
       pathname: page,
@@ -43,7 +67,7 @@ export default class Exercises extends Component {
   render() {
     return (
       <section className="container-fluid h-100 w-100 m-0 p-0">
-        <Menu title="Ejercisios" />
+        <Menu title="Ejercisios" backPage={this.backPage} />
         <div className="container">
           <div className="row mt-5">
             {Object.keys(this.state.exercises).map((key, i) => {
@@ -58,7 +82,7 @@ export default class Exercises extends Component {
                     changePage={this.changePage}
                     content={this.state.exercises[key].question}
                     question={this.state.exercises[key].asws}
-                    video={i+1}
+                    video={i + 1}
                   />
                 );
               }

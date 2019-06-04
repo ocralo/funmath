@@ -19,7 +19,8 @@ export default class Question extends Component {
 
     this.state = {
       source: "",
-      time: tiempo
+      time: tiempo,
+      timeF:100
     };
     this.preguntas = React.createRef();
     this.viewQuestion = this.viewQuestion.bind(this);
@@ -37,6 +38,9 @@ export default class Question extends Component {
     this.changeVolume = this.changeVolume.bind(this);
     this.setMuted = this.setMuted.bind(this);
     this.ChangeScene = this.ChangeScene.bind(this);
+    this.backPage = this.backPage.bind(this);
+
+    this.componentWillMount = this.componentWillMount.bind(this);
   }
 
   handleStateChange(state, prevState) {
@@ -111,9 +115,9 @@ export default class Question extends Component {
     console.log(tiempo);
   }
   detecTime(time) {
-    if (time >= 59 && time < 64) {
+    if (time >= this.state.timeF-3 && time < this.state.timeF) {
       this.viewQuestion();
-    } else if (time >= 64) {
+    } else if (time >= this.state.timeF) {
       this.pause();
       this.viewQuestion();
     } else {
@@ -134,16 +138,18 @@ export default class Question extends Component {
       .database()
       .ref()
       .child("videos");
-    
+    const me = this;
     attemptCard.on("value", snapshot => {
-      console.log(snapshot.val()["video" + this.props.location.state.video]);
-      
-      this.setState({
-        source: snapshot.val()['video' + this.props.location.state.video]
-      });
-      this.refs.player.load();
+      me.setState(
+        {
+          source: snapshot.val()["video" + me.props.location.state.video].video,
+          timeF:snapshot.val()["video" + me.props.location.state.video].time
+        },
+        () => {
+          me.refs.player.load();
+        }
+      );
     });
-    
   }
 
   componentDidMount() {
@@ -164,7 +170,6 @@ export default class Question extends Component {
     clearInterval(interval);
     this.props.history.push("/InteractiveSound");
     console.log("correcto");
-  
   }
   answer(response) {
     clearInterval(interval);
@@ -172,7 +177,7 @@ export default class Question extends Component {
       pathname: "/answer",
       state: {
         answer: response,
-        question:this.props.location.state.video-1
+        question: this.props.location.state.video - 1
       }
     });
   }
@@ -187,10 +192,24 @@ export default class Question extends Component {
     console.log("incorrecto");
   }
 
+  backPage() {
+    console.log("gg");
+    clearInterval(interval);
+    this.props.history.push({
+      pathname: "./exercises"
+      /* state: {
+          data: this.state.exercises
+        } */
+    });
+  }
+
   render() {
     return (
       <div className="container-fluid p-0">
-        <Menu title={this.props.location.state.title} />
+        <Menu
+          title={this.props.location.state.title}
+          backPage={this.backPage}
+        />
         <Player
           ref="player"
           autoPlay
@@ -216,16 +235,11 @@ export default class Question extends Component {
                   (key, i) => {
                     return (
                       <button
-                        onClick={e =>
-                          this.answer(i+1)
-                        }
+                        onClick={e => this.answer(i + 1)}
                         className="btn rel-button-question w-100 col-md-4 col-11 ml-2"
                         key={i}
                       >
-                        {
-                          this.props.location.state
-                            .question[key]
-                        }
+                        {this.props.location.state.question[key]}
                       </button>
                     );
                   }

@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import "./Answer.css";
-import "video-react/dist/video-react.css";
-import { Player, ControlBar, BigPlayButton } from "video-react";
 import Menu from "../../components/Menu/Menu";
 import firebase from "firebase";
-
-const sources = {
-  sintelTrailer: "./assets/video/Que_es_Multimedia.mp4",
-  bunnyTrailer:
-    "https://firebasestorage.googleapis.com/v0/b/funmath-4af76.appspot.com/o/Videos%2FReto%201%20(opcion2).mp4?alt=media&token=ef513670-b7d5-4e44-b286-9fec02b07fe9"
-};
 
 var tiempo, interval;
 
@@ -28,97 +20,8 @@ export default class Answer extends Component {
     this.answerCorrect = this.answerCorrect.bind(this);
     this.answerNoCorrect = this.answerNoCorrect.bind(this);
 
-    this.play = this.play.bind(this);
-    this.pause = this.pause.bind(this);
-    this.load = this.load.bind(this);
-    this.changeCurrentTime = this.changeCurrentTime.bind(this);
-    this.seek = this.seek.bind(this);
-    this.changePlaybackRateRate = this.changePlaybackRateRate.bind(this);
-    this.changeVolume = this.changeVolume.bind(this);
-    this.setMuted = this.setMuted.bind(this);
     this.ChangeScene = this.ChangeScene.bind(this);
-  }
-
-  handleStateChange(state, prevState) {
-    // copy player state to this component's state
-    this.setState({
-      player: state
-    });
-  }
-
-  play() {
-    this.refs.player.play();
-  }
-
-  pause() {
-    this.refs.player.pause();
-  }
-
-  load() {
-    this.refs.player.load();
-  }
-
-  changeCurrentTime(seconds) {
-    return () => {
-      const { player } = this.refs.player.getState();
-      const currentTime = player.currentTime;
-      this.refs.player.seek(currentTime + seconds);
-    };
-  }
-
-  seek(seconds) {
-    return () => {
-      this.refs.player.seek(seconds);
-    };
-  }
-  changePlaybackRateRate(steps) {
-    return () => {
-      const { player } = this.refs.player.getState();
-      const playbackRate = player.playbackRate;
-      this.refs.player.playbackRate = playbackRate + steps;
-    };
-  }
-
-  changeVolume(steps) {
-    return () => {
-      const { player } = this.refs.player.getState();
-      const volume = player.volume;
-      this.refs.player.volume = volume + steps;
-    };
-  }
-
-  setMuted(muted) {
-    return () => {
-      this.refs.player.muted = muted;
-    };
-  }
-
-  changeSource(name) {
-    return () => {
-      this.setState({
-        source: sources[name]
-      });
-      this.refs.player.load();
-    };
-  }
-  changeTime() {
-    const { player } = this.refs.player.getState();
-    tiempo = player.currentTime;
-    this.setState({
-      time: tiempo
-    });
-    this.detecTime(tiempo);
-    console.log(tiempo);
-  }
-  detecTime(time) {
-    if (time >= 59 && time < 64) {
-      this.viewQuestion();
-    } else if (time >= 64) {
-      this.pause();
-      this.viewQuestion();
-    } else {
-      this.noViewQuestion();
-    }
+    this.backPage = this.backPage.bind(this);
   }
 
   viewQuestion() {
@@ -129,29 +32,36 @@ export default class Answer extends Component {
     this.preguntas.current.style.display = "none";
   }
 
-    componentWillMount() {
-        console.log(this.props.location.state.answer + " gg");
+  componentWillMount() {
     const attemptCard = firebase
       .database()
       .ref()
-      .child("videos");
+      .child("preguntas");
 
-    attemptCard.on("value", snapshot => {});
+    attemptCard.on("value", snapshot => {
+      const i = this.props.location.state.question + 1;
+      console.log(
+        this.props.location.state.question +
+          " " +
+          this.props.location.state.answer
+      );
+      const asw = snapshot.val()["pregunta" + i].correctASW;
+      if (asw == this.props.location.state.answer) {
+        this.setState({
+          source:
+            "https://firebasestorage.googleapis.com/v0/b/funmath-4af76.appspot.com/o/imagenes%2FCorrecto.jpeg?alt=media&token=4f071a97-bdc1-4902-99fe-8411c0175c9e"
+        });
+      } else {
+        console.log("incorrecto" + " " + asw);
+        this.setState({
+          source:
+            "https://firebasestorage.googleapis.com/v0/b/funmath-4af76.appspot.com/o/imagenes%2FIncorrecto.jpeg?alt=media&token=e51f30a7-f083-4ce5-acca-7b6960fa31b9"
+        });
+      }
+    });
   }
 
-  componentDidMount() {
-    console.log(this.props.location.state);
-    clearInterval(interval);
-    var me = this;
-    var promise = new Promise((resolve, reject) => {
-      interval = setInterval(function() {
-        resolve(me.changeTime());
-      }, 250);
-    });
-    promise.then(successMessage => {
-      console.log("gg");
-    });
-  }
+  componentDidMount() {}
   //preguntas
   answerCorrect() {
     clearInterval(interval);
@@ -178,33 +88,25 @@ export default class Answer extends Component {
     console.log("incorrecto");
   }
 
+  backPage() {
+    console.log("gg");
+    clearInterval(interval);
+    this.props.history.push({
+      pathname: "./exercises"
+      /* state: {
+          data: this.state.exercises
+        } */
+    });
+  }
+
   render() {
     return (
       <div className="container-fluid p-0 w-100">
-        <Menu title="Respuesta" />
-        <Player
-          ref="player"
-          autoPlay
-          fluid={false}
-          width={window.innerWidth}
-          height={window.innerHeight}
-        >
-          <BigPlayButton position="center" />
-          <source src={this.state.source} />
-          <ControlBar autoHide={false} />
-        </Player>
+        <Menu title="Respuesta" backPage={this.backPage} />
         <div
-          className="container-fluid rel-container-preguntas"
-          ref={this.preguntas}
+          className="row m-0 p-0 justify-content-center"
         >
-          <div className="row justify-content-center text-center ">
-            <h3 className="w-75">{}</h3>
-          </div>
-          <div className="row justify-content-center text-center ">
-            <div className="col-md-6">
-              <div className="row justify-content-center">{}</div>
-            </div>
-          </div>
+          <img src={this.state.source} alt="qr image" />
         </div>
       </div>
     );

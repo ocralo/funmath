@@ -11,20 +11,51 @@ export default class Login extends Component {
       lastName: ""
     };
     this.changePage = this.changePage.bind(this);
+    this.backPage = this.backPage.bind(this);
   }
-  handleClick = event => { };
-  
+  handleClick = event => {};
+
   changePage(page) {
     console.log(page);
-    this.props.history.push(page);
+    this.props.history.push({
+      pathname: page,
+      state: {
+        user:this.state.name
+      }
+    });
   }
 
   handleSubmit = event => {};
 
+  backPage() {
+    console.log("gg");
+    this.props.history.push({
+      pathname: "./"
+    });
+  }
+  componentDidMount() {
+    try {
+      if (
+        this.props.location.state.user.user.displayName === "" ||
+        this.props.location.state.user.user.displayName === undefined
+      ) {
+      } else {
+        sessionStorage.setItem(
+          "name",
+          this.props.location.state.user.user.displayName
+        );
+      }
+    } catch {}
+
+    this.setState({
+      name: sessionStorage.getItem("name")
+    });
+  }
+
   render() {
     return (
       <section className="container-fluid h-100 w-100 m-0 p-0">
-        <Menu title="Inicio" />
+        <Menu title="Inicio" backPage={this.backPage} name={this.state.name} />
         <div className="container">
           <div className="row mt-5">
             <Card

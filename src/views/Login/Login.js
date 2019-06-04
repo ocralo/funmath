@@ -22,7 +22,12 @@ export default class Login extends Component {
       .signInWithPopup(provider)
       .then(function(result) {
         if (result) {
-          me.props.history.push("/home");
+          me.props.history.push({
+            pathname: "./home",
+            state: {
+              user: result
+            }
+          });
         }
       })
       .catch(function (error) {
@@ -41,6 +46,12 @@ export default class Login extends Component {
       .then(function(firebaseUser) {
         console.log("Exito", firebaseUser);
         me.props.history.push("/home");
+        this.props.history.push({
+          pathname: "./home",
+          state: {
+            user: firebaseUser
+          }
+        });
       })
       .catch(function(error) {
         var errorMessage = error.message;

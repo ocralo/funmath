@@ -6,15 +6,21 @@
   border-bottom: 56px solid #10455b;
   border-right: 65px solid transparent;
   width: 20vw;
+  z-index: 1000;
 }
 .rel-title-menu-navbar h1 {
   color: white;
 }
 
+.rel-icon-menu{
+  color:white;
+  margin-right: 0.2em;
+}
+
 .rel-title-menu-navbar img {
   width: auto;
   height: 2.5em;
-  margin-right: 1em;
+  margin-left: 1.5em;
   padding-top: 0.2em;
 }
 
