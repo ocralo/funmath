@@ -17,6 +17,14 @@
   margin-right: 0.2em;
 }
 
+.rel-icon-menu:hover{
+  cursor: pointer;
+}
+
+.rel-icon-user:hover{
+  cursor: pointer;
+}
+
 .rel-title-menu-navbar img {
   width: auto;
   height: 2.5em;

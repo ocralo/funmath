@@ -23,10 +23,10 @@ export default class Card extends Component {
             {this.props.content}
           </p>
         </div>
-        <div className="w-100 d-flex justify-content-end">
+        <div className="w-100 d-flex justify-content-center">
           <button
             type="button"
-            className="btn btn-info btn-sm mb-2 mr-2 w-25 shadow-sm"
+            className="btn btn-info btn-sm mb-2 w-75 shadow-sm"
             onClick={e =>
               this.handleClick(e, this.props.url,this.props.content, this.props.title,this.props.question,this.props.video)
             }

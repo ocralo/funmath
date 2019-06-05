@@ -100,10 +100,24 @@ export default class Answer extends Component {
     return (
       <div className="container-fluid p-0 w-100">
         <Menu title="Respuesta" backPage={this.backPage} />
-        <div
-          className="row m-0 p-0 justify-content-center"
-        >
+        <div className="row m-0 p-0 d-flex flex-column align-items-center align-content-between justify-content-center">
           <img src={this.state.source} alt="qr" />
+          <h3>
+            Para ver su respuesta, por favor escanea el siguiente código QR
+            mediante la aplicación Meotino.
+          </h3>
+          <h5>
+            Si aún no cuenta con la aplicación, puede descargarla dando clic
+            en el siguiente botón.
+          </h5>
+          <br />
+          <a
+            class="btn btn-info btn-lg text-uppercase"
+            href="https://drive.google.com/file/d/1kN2Bsn84nisL6GmKaRaTEvtmke7FwiTw/view?usp=sharing"
+            role="button"
+          >
+            Descargar
+          </a>
         </div>
       </div>
     );
