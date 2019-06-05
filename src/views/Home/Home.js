@@ -70,7 +70,7 @@ export default class Login extends Component {
             />
             <Card
               title="Ejemplos"
-              url="gg2"
+              url="/example"
               changePage={this.changePage}
               content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi gravida congue aliquet. Donec convallis lacus vitae justo viverra sagittis. Praesent a mollis nunc, sit amet congue elit. "
             />

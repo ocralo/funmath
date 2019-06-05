@@ -21,7 +21,21 @@ export default class Valuation extends Component {
       .ref()
       .child("users");
 
-    attemptCard.on("value", snapshot => {});
+      attemptCard.on("value", snapshot => { });
+      
+      try {
+        console.log(this.props.location.state.name);
+        if (
+          this.props.location.state.name === "" ||
+          this.props.location.state.name === undefined
+        ) {
+        } else {
+          sessionStorage.setItem("name", this.props.location.state.name);
+        }
+      } catch {}
+      this.setState({
+        name: sessionStorage.getItem("name")
+      });
   }
 
   componentDidMount() {}
@@ -40,14 +54,17 @@ export default class Valuation extends Component {
             {
                 label: "respuestas",
                 backgroundColor: "#2AA1AF",
-                //   backgroundColor: ["#10455b", "#E2F0F1","#2AA1AF"],
                 data: [2, 3, 5]
         }
       ]
     };
     return (
       <div className="container-fluid p-0 w-100 h-100">
-        <Menu title="Calificaciones" backPage={this.backPage} />
+        <Menu
+          title="Calificaciones"
+          backPage={this.backPage}
+          name={this.state.name}
+        />
         <div className="row m-0 p-0 rel-chart-bar justify-content-center">
           <HorizontalBar
             data={data}

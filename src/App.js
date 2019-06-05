@@ -48,6 +48,11 @@ const Valuation = Loadable({
   loading
 });
 
+const Example = Loadable({
+  loader: () => import("./views/Example/Example"),
+  loading
+});
+
 // Configuracion de firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBsl6DZ-RS-xr3i3ISEjigB-28-XRmgAc4",
@@ -92,6 +97,12 @@ function App() {
           path="/Valuation"
           name="Valuation - Funmath"
           component={Valuation}
+        />
+        <Route
+          exact
+          path="/Example"
+          name="Example - Funmath"
+          component={Example}
         />
       </Switch>
     </HashRouter>
