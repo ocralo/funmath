@@ -107,13 +107,17 @@ export default class Question extends Component {
     };
   }
   changeTime() {
-    const { player } = this.refs.player.getState();
-    tiempo = player.currentTime;
-    this.setState({
-      time: tiempo
-    });
-    this.detecTime(tiempo);
-    console.log(tiempo);
+    try {
+      const { player } = this.refs.player.getState();
+      tiempo = player.currentTime;
+      this.setState({
+        time: tiempo
+      });
+      this.detecTime(tiempo);
+      console.log(tiempo);
+    } catch (error) {
+      console.error(error)
+    }
   }
   detecTime(time) {
     if (time >= this.state.timeF - 3 && time < this.state.timeF) {
@@ -170,14 +174,19 @@ export default class Question extends Component {
     console.log(this.props.location.state);
     clearInterval(interval);
     var me = this;
-    var promise = new Promise((resolve, reject) => {
-      interval = setInterval(function() {
-        resolve(me.changeTime());
-      }, 250);
-    });
-    promise.then(successMessage => {
-      console.log("gg");
-    });
+    try {
+      var promise = new Promise((resolve, reject) => {
+        interval = setInterval(function () {
+          resolve(me.changeTime());
+        }, 250);
+      });
+      promise.then(successMessage => {
+        console.log("gg");
+      });
+    }
+    catch(error){
+      console.error(error);
+    }
   }
   //preguntas
   answerCorrect() {
