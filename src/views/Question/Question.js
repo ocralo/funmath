@@ -20,7 +20,8 @@ export default class Question extends Component {
     this.state = {
       source: "",
       time: tiempo,
-      timeF:100
+      timeF: 100,
+      name: ""
     };
     this.preguntas = React.createRef();
     this.viewQuestion = this.viewQuestion.bind(this);
@@ -115,7 +116,7 @@ export default class Question extends Component {
     console.log(tiempo);
   }
   detecTime(time) {
-    if (time >= this.state.timeF-3 && time < this.state.timeF) {
+    if (time >= this.state.timeF - 3 && time < this.state.timeF) {
       this.viewQuestion();
     } else if (time >= this.state.timeF) {
       this.pause();
@@ -143,12 +144,25 @@ export default class Question extends Component {
       me.setState(
         {
           source: snapshot.val()["video" + me.props.location.state.video].video,
-          timeF:snapshot.val()["video" + me.props.location.state.video].time
+          timeF: snapshot.val()["video" + me.props.location.state.video].time
         },
         () => {
           me.refs.player.load();
         }
       );
+    });
+    try {
+      console.log(this.props.location.state.name);
+      if (
+        this.props.location.state.name === "" ||
+        this.props.location.state.name === undefined
+      ) {
+      } else {
+        sessionStorage.setItem("name", this.props.location.state.name);
+      }
+    } catch {}
+    this.setState({
+      name: sessionStorage.getItem("name")
     });
   }
 
@@ -197,9 +211,6 @@ export default class Question extends Component {
     clearInterval(interval);
     this.props.history.push({
       pathname: "./exercises"
-      /* state: {
-          data: this.state.exercises
-        } */
     });
   }
 
@@ -209,6 +220,7 @@ export default class Question extends Component {
         <Menu
           title={this.props.location.state.title}
           backPage={this.backPage}
+          name={this.state.name}
         />
         <Player
           ref="player"

@@ -93,9 +93,6 @@ export default class Answer extends Component {
     clearInterval(interval);
     this.props.history.push({
       pathname: "./exercises"
-      /* state: {
-          data: this.state.exercises
-        } */
     });
   }
 
@@ -106,7 +103,7 @@ export default class Answer extends Component {
         <div
           className="row m-0 p-0 justify-content-center"
         >
-          <img src={this.state.source} alt="qr image" />
+          <img src={this.state.source} alt="qr" />
         </div>
       </div>
     );

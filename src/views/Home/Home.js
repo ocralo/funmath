@@ -20,7 +20,7 @@ export default class Login extends Component {
     this.props.history.push({
       pathname: page,
       state: {
-        user:this.state.name
+        user: sessionStorage.getItem("name")
       }
     });
   }
@@ -55,7 +55,11 @@ export default class Login extends Component {
   render() {
     return (
       <section className="container-fluid h-100 w-100 m-0 p-0">
-        <Menu title="Inicio" backPage={this.backPage} name={this.state.name} />
+        <Menu
+          title="Inicio"
+          backPage={this.backPage}
+          name={this.state.name}
+        />
         <div className="container">
           <div className="row mt-5">
             <Card
@@ -72,7 +76,7 @@ export default class Login extends Component {
             />
             <Card
               title="Calificaciones"
-              url="gg3"
+              url="Valuation"
               changePage={this.changePage}
               content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi gravida congue aliquet. Donec convallis lacus vitae justo viverra sagittis. Praesent a mollis nunc, sit amet congue elit. "
             />

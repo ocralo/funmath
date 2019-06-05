@@ -28,14 +28,15 @@ export default class Exercises extends Component {
       });
     });
     try {
+      console.log(this.props.location.state.name);
       if (
-        this.props.location.state.user.user.displayName === "" ||
-        this.props.location.state.user.user.displayName === undefined
+        this.props.location.state.name === "" ||
+        this.props.location.state.name === undefined
       ) {
       } else {
         sessionStorage.setItem(
           "name",
-          this.props.location.state.user.user.displayName
+          this.props.location.state.name
         );
       }
     } catch {}
@@ -59,7 +60,8 @@ export default class Exercises extends Component {
         content: contentQuestion,
         title: titleQuestion,
         question: question,
-        video: video
+        video: video,
+        name: sessionStorage.getItem("name")
       }
     });
   }
@@ -67,7 +69,7 @@ export default class Exercises extends Component {
   render() {
     return (
       <section className="container-fluid h-100 w-100 m-0 p-0">
-        <Menu title="Ejercisios" backPage={this.backPage} />
+        <Menu title="Ejercisios" backPage={this.backPage} name={this.state.name}/>
         <div className="container">
           <div className="row mt-5">
             {Object.keys(this.state.exercises).map((key, i) => {
